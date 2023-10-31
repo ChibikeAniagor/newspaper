@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -12,7 +14,7 @@ class NewsPage extends StatefulWidget {
 
 class _NewsPageState extends State<NewsPage> {
   TextEditingController searchInputController = TextEditingController();
-  List<dynamic> NewsHeadlines = [
+  List<Map<String, dynamic>> NewsHeadlines = [
     {
       "author": "barrons.com",
       "title":
@@ -31,10 +33,10 @@ class _NewsPageState extends State<NewsPage> {
     http.Response response = await http.get(Uri.parse(
         'https://newsapi.org/v2/everything?q=tesla&from=2023-09-30&sortBy=publishedAt&apiKey=a6133ef667e941378c6b29ae4ca19e74'));
     setState(() {
-      NewsHeadlines = jsonDecode(response.body) as List<dynamic>;
+      NewsHeadlines =
+          jsonDecode(response.body)['articles'] as List<Map<String, dynamic>>;
     });
-
-    print(response.body);
+    print((response.body));
   }
 
   @override
